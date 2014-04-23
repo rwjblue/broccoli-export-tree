@@ -1,5 +1,7 @@
 # Broccoli Export Tree
 
+[![Build Status](https://travis-ci.org/rjackson/broccoli-export-tree.svg?branch=master)](https://travis-ci.org/rjackson/broccoli-export-tree)
+
 Export a tree to an external directory.
 
 ## Usage
