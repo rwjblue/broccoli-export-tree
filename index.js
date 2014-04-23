@@ -21,7 +21,6 @@ ExportTree.prototype.write = function (readTree, destDir) {
 
   return readTree(this.inputTree).then(function (srcDir) {
     if (self.clobber) {
-      console.log('clobbering');
       rimraf.sync(self.destDir);
     }
 
