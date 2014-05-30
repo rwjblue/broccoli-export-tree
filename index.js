@@ -9,11 +9,16 @@ ExportTree.prototype.constructor = ExportTree;
 function ExportTree (inputTree, options) {
   if (!(this instanceof ExportTree)) return new ExportTree(inputTree, options);
 
+  options = options || {};
   this.inputTree = inputTree;
-  this.destDir   = options.destDir;
-  this.clobber   = true;
 
-  if (options.hasOwnProperty('clobber')) { this.clobber = options.clobber; }
+  for (var key in options) {
+    if (options.hasOwnProperty(key)) {
+      this[key] = options[key]
+    }
+  }
+
+  if (this.clobber === undefined) { this.clobber   = true; }
 };
 
 ExportTree.prototype.updateCache = function (srcDir, destDir) {
