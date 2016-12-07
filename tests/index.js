@@ -13,7 +13,7 @@ var broccoli = require('broccoli');
 var builder;
 
 describe('broccoli-file-mover', function(){
-  var exportLocation = 'tmp/exported/';
+  var exportLocation = 'tmp/exported';
 
   afterEach(function() {
     if (builder) {
@@ -25,7 +25,7 @@ describe('broccoli-file-mover', function(){
 
   it('exports a tree to an external directory', function(){
     var sourcePath = 'tests/fixtures/sample-ember-style-package';
-    var tree = exportTree(sourcePath, {
+    var tree = new exportTree(sourcePath, {
       destDir: exportLocation
     });
 
@@ -44,7 +44,7 @@ describe('broccoli-file-mover', function(){
     var priorFilePath = path.join(root, exportLocation, 'random-stuff.txt');
     var contents   = 'random stuff';
 
-    var tree = exportTree(sourcePath, {
+    var tree = new exportTree(sourcePath, {
       destDir: exportLocation,
       clobber: false
     });

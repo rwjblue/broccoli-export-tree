@@ -2,31 +2,28 @@ var fs = require('fs');
 var path = require('path');
 var rimraf = require('rimraf');
 var CachingWriter = require('broccoli-caching-writer');
-var helpers = require('broccoli-kitchen-sink-helpers')
+var helpers = require('broccoli-kitchen-sink-helpers');
 
 ExportTree.prototype = Object.create(CachingWriter.prototype);
 ExportTree.prototype.constructor = ExportTree;
-function ExportTree (inputTree, options) {
-  if (!(this instanceof ExportTree)) return new ExportTree(inputTree, options);
+function ExportTree (inputNode, options) {
+  if (!(this instanceof ExportTree)) return new ExportTree(inputNode, options);
 
   options = options || {};
-  this.inputTree = inputTree;
+  CachingWriter.call(this, [inputNode], options);
 
-  for (var key in options) {
-    if (options.hasOwnProperty(key)) {
-      this[key] = options[key]
-    }
-  }
+  this.options = options;
 
-  if (this.clobber === undefined) { this.clobber   = true; }
+  if (this.options.clobber === undefined) { this.options.clobber = true; }
 };
 
-ExportTree.prototype.updateCache = function (srcDir, destDir) {
-  if (this.clobber) {
-    rimraf.sync(this.destDir);
+ExportTree.prototype.build = function () {
+  if (this.options.clobber) {
+    rimraf.sync(this.options.destDir);
   }
 
-  helpers.copyRecursivelySync(srcDir, this.destDir);
+  console.log(this.inputPaths[0], this.options.destDir);
+  helpers.copyRecursivelySync(this.inputPaths[0], this.options.destDir);
 };
 
 module.exports = ExportTree;
